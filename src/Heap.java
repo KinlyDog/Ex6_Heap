@@ -75,7 +75,7 @@ class Heap {
             return false;
         }
 
-        if (HeapArray[0] == -1) {
+        if (end == -1) {
             HeapArray[0] = key;
             end++;
             return true;
@@ -97,9 +97,9 @@ class Heap {
         int leftChild = 2 * i + 1;
         int rightChild = 2 * i + 2;
 
-        if ((leftChild >= HeapArray.length ||
-                rightChild >= HeapArray.length) &&
-                HeapArray[i] < HeapArray[parent]) {
+        if (HeapArray[i] < HeapArray[parent] &&
+                (leftChild >= HeapArray.length ||
+                        rightChild >= HeapArray.length)) {
             return;
         }
 
