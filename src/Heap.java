@@ -49,9 +49,9 @@ class Heap {
 
     private void resort(int i) {
         int leftChild = 2 * i + 1;
-        int rightChild = 2 * i + 2;
+        int rightChild = leftChild + 1;
 
-        if (leftChild >= HeapArray.length || rightChild >= HeapArray.length) {
+        if (leftChild >= HeapArray.length) {
             return;
         }
 
@@ -65,9 +65,7 @@ class Heap {
         HeapArray[i] = HeapArray[max];
         HeapArray[max] = temp;
 
-        i = max;
-
-        resort(i);
+        resort(max);
     }
 
     public boolean Add(int key) {
@@ -82,40 +80,22 @@ class Heap {
         }
 
         HeapArray[++end] = key;
-
         AddRec(end);
 
         return true;
     }
 
     private void AddRec(int i) {
-        if (i <= 0) {
+        if (i == 0 || HeapArray[i] < HeapArray[(i - 1) / 2]) {
             return;
         }
 
         int parent = (i - 1) / 2;
-        int leftChild = 2 * i + 1;
-        int rightChild = 2 * i + 2;
-
-        if (HeapArray[i] < HeapArray[parent] &&
-                (leftChild >= HeapArray.length ||
-                        rightChild >= HeapArray.length)) {
-            return;
-        }
-
-        if (HeapArray[i] < HeapArray[parent] &&
-                HeapArray[i] > HeapArray[leftChild] &&
-                HeapArray[i] > HeapArray[rightChild]) {
-            return;
-        }
-
         int temp = HeapArray[parent];
 
         HeapArray[parent] = HeapArray[i];
         HeapArray[i] = temp;
 
-        i = parent;
-
-        AddRec(i);
+        AddRec(parent);
     }
 }
